@@ -1,21 +1,52 @@
 {
-    "employees": [
-      {
-        "id": 1,
-        "name": "John Doe",
-        "email": "john.doe@example.com",
-        "phone": "123-456-7890",
-        "image": "https://example.com/john.jpg",
-        "position": "Software Developer"
-      },
-      {
-        "id": 2,
-        "name": "Jane Smith",
-        "email": "jane.smith@example.com",
-        "phone": "987-654-3210",
-        "image": "https://example.com/jane.jpg",
-        "position": "UI/UX Designer"
-      }
-    ]
-  }
-  
+  "employees": [
+    {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "phone": "555-1234",
+      "image": "https://via.placeholder.com/150",
+      "position": "Software Engineer",
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "phone": "555-5678",
+      "image": "https://via.placeholder.com/150",
+      "position": "Project Manager"
+    },
+    {
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "phone": "555-8765",
+      "image": "https://via.placeholder.com/150",
+      "position": "Designer",
+      "id": "3"
+    },
+    {
+      "id": "82726255151",
+      "name": "Greg",
+      "email": "Greg@GB.com",
+      "phone": "04944884",
+      "image": "http://localhost:3000/",
+      "position": "Tester"
+    },
+    {
+      "id": "49946464643",
+      "name": "tom",
+      "email": "jerry@tim.com",
+      "phone": "034642488",
+      "image": "http://localhost:3000/",
+      "position": "BA"
+    },
+    {
+      "id": "94949494",
+      "name": "Bobby",
+      "email": "bob@b.com",
+      "phone": "022591991",
+      "image": "http://localhost:3000/",
+      "position": "Tester"
+    }
+  ]
+}

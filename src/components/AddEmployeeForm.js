@@ -1,5 +1,3 @@
-// AddEmployeeForm.js (Updated)
-
 import React, { useState, useEffect } from 'react';
 
 const AddEmployeeForm = ({ onAddEmployee, employeeToEdit }) => {
@@ -25,12 +23,12 @@ const AddEmployeeForm = ({ onAddEmployee, employeeToEdit }) => {
     e.preventDefault();
 
     const updatedEmployee = {
-      name: name,
-      email: email,
-      phone: phone,
-      image: image,
-      position: position,
-      id: id
+      name,
+      email,
+      phone,
+      image,
+      position,
+      id
     };
 
     onAddEmployee(updatedEmployee);
