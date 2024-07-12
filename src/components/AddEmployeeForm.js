@@ -43,32 +43,32 @@ const AddEmployeeForm = ({ onAddEmployee, employeeToEdit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Name:</label>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+    <form className='form' onSubmit={handleSubmit}>
+      <label className='labels'>Name:</label>
+      <input className='inputs' type="text" value={name} onChange={(e) => setName(e.target.value)} required />
       <br />
 
-      <label>Email:</label>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+      <label className='labels'>Email:</label>
+      <input className='inputs' type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
       <br />
 
-      <label>Phone Number:</label>
-      <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+      <label className='labels'>Phone Number:</label>
+      <input className='inputs' type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required />
       <br />
 
-      <label>Image URL:</label>
-      <input type="url" value={image} onChange={(e) => setImage(e.target.value)} />
+      <label className='labels'>Image URL:</label>
+      <input className='inputs' type="url" value={image} onChange={(e) => setImage(e.target.value)} />
       <br />
 
-      <label>Position:</label>
-      <input type="text" value={position} onChange={(e) => setPosition(e.target.value)} required />
+      <label className='labels'>Position:</label>
+      <input className='inputs' type="text" value={position} onChange={(e) => setPosition(e.target.value)} required />
       <br />
 
-      <label>ID:</label>
-      <input type="text" value={id} onChange={(e) => setId(e.target.value)} required />
+      <label className='labels'>ID:</label>
+      <input className='inputs' type="text" value={id} onChange={(e) => setId(e.target.value)} required />
       <br />
 
-      <button type="submit">{employeeToEdit ? 'Update Employee' : 'Add Employee'}</button>
+      <button className='btn' type="submit">{employeeToEdit ? 'Update Employee' : 'Add Employee'}</button>
     </form>
   );
 };

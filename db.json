@@ -47,6 +47,14 @@
       "phone": "022591991",
       "image": "http://localhost:3000/",
       "position": "Tester"
+    },
+    {
+      "name": "Ekasi",
+      "email": "ekas@ks.com",
+      "phone": "023654999",
+      "image": "http://localhost:3000/",
+      "position": "Web Dev",
+      "id": "5"
     }
   ]
 }

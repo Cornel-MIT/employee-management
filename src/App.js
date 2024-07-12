@@ -60,14 +60,15 @@ const App = () => {
       <h1>Employee Registration Application</h1>
       <AddEmployeeForm onAddEmployee={handleAddEmployee} employeeToEdit={employeeToEdit} />
 
-      <h2>Search Employee by ID</h2>
+      <h2 className='searchH'>Search Employee by ID</h2>
       <input 
+        className='inputSearch'
         type="text" 
         value={searchQuery} 
         onChange={(e) => setSearchQuery(e.target.value)} 
         placeholder="Search by ID" 
       />
-      <button onClick={handleSearch}>Search</button>
+      <button className='btnSearch' onClick={handleSearch}>Search</button>
 
       <h2>Employees List</h2>
       <ul>

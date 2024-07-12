@@ -21,6 +21,47 @@ input {
   margin: 10px 0;
 }
 
+h1 {
+  margin-left: 200px;
+}
+
 button {
   margin-top: 10px;
+}
+
+.form {
+  margin: 150px;
+  height: 600px;
+  padding-top: 40px;
+  border-radius: 5%;
+  margin-right: 70rem;
+  margin-top: 15px;
+  background-color: aquamarine;
+}
+
+.inputs {
+   width: 300px;
+   margin-left: 130px;
+   
+}
+
+.labels {
+   margin-left: 130px;
+}
+
+.btn {
+   margin-left: 237px;
+}
+
+.searchH {
+  margin-left: 300px;
+}
+
+.inputSearch {
+  margin-left: 300px;
+}
+
+.btnSearch {
+  margin-left: 500px;
+  margin-top: -100px;
 }
