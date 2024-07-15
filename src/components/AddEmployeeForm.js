@@ -56,8 +56,8 @@ const AddEmployeeForm = ({ onAddEmployee, employeeToEdit }) => {
       <input className='inputs' type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required />
       <br />
 
-      <label className='labels'>Image URL:</label>
-      <input className='inputs' type="url" value={image} onChange={(e) => setImage(e.target.value)} />
+      <label className='labels'>Image FILE:</label>
+      <input className='inputs' type="file" value={image} onChange={(e) => setImage(e.target.value)} />
       <br />
 
       <label className='labels'>Position:</label>

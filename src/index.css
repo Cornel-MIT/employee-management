@@ -23,10 +23,42 @@ input {
 
 h1 {
   margin-left: 200px;
+  font-family: serif;
+}
+
+h2 {
+  font-family: serif;
+}
+
+.deleteBtn{
+  margin-left: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 4px;
+  font-weight: bolder;
+}
+
+.editBtn {
+  margin-left: 90px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 4px;
+  font-weight: bolder;
+}
+
+.editBtn:hover {
+  background-color: greenyellow;
+  color: black;
+}
+
+.deleteBtn:hover {
+  background-color: red;
+  color: black;
 }
 
 button {
   margin-top: 10px;
+
 }
 
 .form {
@@ -42,7 +74,11 @@ button {
 .inputs {
    width: 300px;
    margin-left: 130px;
-   
+   border-radius: 4px;
+}
+
+.inputs:hover {
+  background-color: rgb(255, 237, 210);
 }
 
 .labels {
@@ -51,6 +87,13 @@ button {
 
 .btn {
    margin-left: 237px;
+   background-color: aquamarine;
+   border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: aqua;
+  color:black;
 }
 
 .searchH {

@@ -75,8 +75,10 @@ const App = () => {
         {employees.map(employee => (
           <li key={employee.id}>
             {employee.name} - {employee.position}
-            <button onClick={() => handleEditEmployee(employee)}>Edit</button>
-            <button onClick={() => handleDeleteEmployee(employee.id)}>Delete</button>
+            <div>
+            </div>
+            <button className='editBtn' onClick={() => handleEditEmployee(employee)}>Edit</button>
+            <button className='deleteBtn' onClick={() => handleDeleteEmployee(employee.id)}>Delete</button>
           </li>
         ))}
       </ul>
