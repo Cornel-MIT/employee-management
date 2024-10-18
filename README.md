@@ -68,10 +68,8 @@ To run this project locally, follow these steps:
 
 4. Start the React development server:
    ```
-
-### `npm start`
-   ```
-
+   npm start
+   
 5. Open the app in your browser:
    ```
    http://localhost:3000
