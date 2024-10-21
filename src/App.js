@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddEmployeeForm from './components/AddEmployeeForm';
+import EmployeeCard from './components/EmployeeCard';
+import './App.css';
 
 const App = () => {
   const [employees, setEmployees] = useState([]);
@@ -14,6 +16,10 @@ const App = () => {
   }, []);
 
   const handleAddEmployee = (newEmployee) => {
+    if (newEmployee.image) {
+      newEmployee.image = URL.createObjectURL(newEmployee.image); 
+    }
+
     if (employeeToEdit) {
       axios.put(`http://localhost:5000/employees/${newEmployee.id}`, newEmployee)
         .then(response => {
@@ -57,7 +63,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>Employee Registration Application</h1>
+      <h1 className='form-title'>Employee Registration Application</h1>
       <AddEmployeeForm onAddEmployee={handleAddEmployee} employeeToEdit={employeeToEdit} />
 
       <h2 className='searchH'>Search Employee by ID</h2>
@@ -71,17 +77,16 @@ const App = () => {
       <button className='btnSearch' onClick={handleSearch}>Search</button>
 
       <h2>Employees List</h2>
-      <ul>
+      <div className="employee-list">
         {employees.map(employee => (
-          <li key={employee.id}>
-            {employee.name} - {employee.position}
-            <div>
-            </div>
-            <button className='editBtn' onClick={() => handleEditEmployee(employee)}>Edit</button>
-            <button className='deleteBtn' onClick={() => handleDeleteEmployee(employee.id)}>Delete</button>
-          </li>
+          <EmployeeCard 
+            key={employee.id} 
+            employee={employee} 
+            onEdit={handleEditEmployee} 
+            onDelete={handleDeleteEmployee} 
+          />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

@@ -2,9 +2,9 @@
   "employees": [
     {
       "name": "mushe",
-      "email": "mos@gmail.com",
+      "email": "mos09@gmail.com",
       "phone": "098554267",
-      "image": "",
+      "image": null,
       "position": "Worker",
       "id": "23"
     },
@@ -12,17 +12,9 @@
       "name": "Joe",
       "email": "Joe@JG.com",
       "phone": "0268549849",
-      "image": "",
+      "image": "blob:http://localhost:3000/c788f6eb-6b1f-410a-a957-29a390a74ee4",
       "position": "Developer Jnr",
       "id": "1"
-    },
-    {
-      "id": "2",
-      "name": "Sam",
-      "email": "sam990@sm.com",
-      "phone": "0796622626",
-      "image": "",
-      "position": "BA"
     },
     {
       "id": "4",
@@ -39,6 +31,14 @@
       "phone": "078282892",
       "image": "",
       "position": "Wed Dev"
+    },
+    {
+      "id": "10",
+      "name": "Thor",
+      "email": "Thor@gmail.com",
+      "phone": "0872525243",
+      "image": "blob:http://localhost:3000/0bc9ffef-377c-49fb-8030-12a9c130ae4c",
+      "position": "strongest avenger"
     }
   ]
 }

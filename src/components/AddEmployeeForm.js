@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import './AddEmployeeForm.css';
 
 const AddEmployeeForm = ({ onAddEmployee, employeeToEdit }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null); 
   const [position, setPosition] = useState('');
   const [id, setId] = useState('');
 
@@ -13,7 +14,7 @@ const AddEmployeeForm = ({ onAddEmployee, employeeToEdit }) => {
       setName(employeeToEdit.name);
       setEmail(employeeToEdit.email);
       setPhone(employeeToEdit.phone);
-      setImage(employeeToEdit.image || '');
+      setImage(null); 
       setPosition(employeeToEdit.position);
       setId(employeeToEdit.id);
     }
@@ -28,47 +29,47 @@ const AddEmployeeForm = ({ onAddEmployee, employeeToEdit }) => {
       phone,
       image,
       position,
-      id
+      id,
     };
 
     onAddEmployee(updatedEmployee);
 
-    // Clear form fields after submission
     setName('');
     setEmail('');
     setPhone('');
-    setImage('');
+    setImage(null);
     setPosition('');
     setId('');
   };
 
   return (
-    <form className='form' onSubmit={handleSubmit}>
-      <label className='labels'>Name:</label>
-      <input className='inputs' type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-      <br />
-
-      <label className='labels'>Email:</label>
-      <input className='inputs' type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-      <br />
-
-      <label className='labels'>Phone Number:</label>
-      <input className='inputs' type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-      <br />
-
-      <label className='labels'>Image FILE:</label>
-      <input className='inputs' type="file" value={image} onChange={(e) => setImage(e.target.value)} />
-      <br />
-
-      <label className='labels'>Position:</label>
-      <input className='inputs' type="text" value={position} onChange={(e) => setPosition(e.target.value)} required />
-      <br />
-
-      <label className='labels'>ID:</label>
-      <input className='inputs' type="text" value={id} onChange={(e) => setId(e.target.value)} required />
-      <br />
-
-      <button className='btn' type="submit">{employeeToEdit ? 'Update Employee' : 'Add Employee'}</button>
+    <form className='employee-form' onSubmit={handleSubmit}>
+      <h2>{employeeToEdit ? 'Edit Employee' : 'Add Employee'}</h2>
+      <div className='form-group'>
+        <label className='form-label'>Name:</label>
+        <input className='form-input' type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+      </div>
+      <div className='form-group'>
+        <label className='form-label'>Email:</label>
+        <input className='form-input' type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+      </div>
+      <div className='form-group'>
+        <label className='form-label'>Phone Number:</label>
+        <input className='form-input' type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+      </div>
+      <div className='form-group'>
+        <label className='form-label'>Image FILE:</label>
+        <input className='form-input' type="file" onChange={(e) => setImage(e.target.files[0])} />
+      </div>
+      <div className='form-group'>
+        <label className='form-label'>Position:</label>
+        <input className='form-input' type="text" value={position} onChange={(e) => setPosition(e.target.value)} required />
+      </div>
+      <div className='form-group'>
+        <label className='form-label'>ID:</label>
+        <input className='form-input' type="text" value={id} onChange={(e) => setId(e.target.value)} required />
+      </div>
+      <button className='form-button' type="submit">{employeeToEdit ? 'Update Employee' : 'Add Employee'}</button>
     </form>
   );
 };
