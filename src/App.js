@@ -4,75 +4,89 @@ import AddEmployeeForm from './components/AddEmployeeForm';
 import EmployeeCard from './components/EmployeeCard';
 import './App.css';
 
+const API_URL = 'http://localhost:5000/api/employees';
+
 const App = () => {
   const [employees, setEmployees] = useState([]);
   const [employeeToEdit, setEmployeeToEdit] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/employees')
-      .then(response => setEmployees(response.data))
-      .catch(error => console.error('Error fetching employees:', error));
+    const fetchEmployees = async () => {
+      try {
+        const response = await axios.get(API_URL);
+        setEmployees(response.data);
+      } catch (error) {
+        console.error('Error fetching employees:', error);
+      }
+    };
+
+    fetchEmployees();
   }, []);
 
-  const handleAddEmployee = (newEmployee) => {
-    if (newEmployee.image) {
-      newEmployee.image = URL.createObjectURL(newEmployee.image); 
+  const handleAddEmployee = async (newEmployee) => {
+    try {
+      if (employeeToEdit) {
+
+        const response = await axios.put(
+          `${API_URL}/${employeeToEdit.id}`, 
+          newEmployee
+        );
+        
+        setEmployees(employees.map(emp => 
+          emp.id === employeeToEdit.id ? response.data : emp
+        ));
+        setEmployeeToEdit(null);
+      } else {
+
+        const response = await axios.post(API_URL, newEmployee);
+        setEmployees([...employees, response.data]);
+      }
+    } catch (error) {
+      console.error('Error saving employee:', error);
     }
+  };
 
-    if (employeeToEdit) {
-      axios.put(`http://localhost:5000/employees/${newEmployee.id}`, newEmployee)
-        .then(response => {
-          const updatedEmployees = employees.map(emp => emp.id === newEmployee.id ? newEmployee : emp);
-          setEmployees(updatedEmployees);
-          setEmployeeToEdit(null);
-        })
-        .catch(error => console.error('Error updating employee:', error));
-    } else {
-      axios.post('http://localhost:5000/employees', newEmployee)
-        .then(response => {
-          setEmployees([...employees, response.data]);
-        })
-        .catch(error => console.error('Error adding employee:', error));
+  const handleDeleteEmployee = async (id) => {
+    try {
+      await axios.delete(`${API_URL}/${id}`);
+      setEmployees(employees.filter(emp => emp.id !== id));
+    } catch (error) {
+      console.error('Error deleting employee:', error);
     }
   };
 
-  const handleEditEmployee = (employee) => {
-    setEmployeeToEdit(employee);
-  };
+  const handleSearch = async () => {
+    try {
+      if (searchQuery) {
+        const response = await axios.get(`${API_URL}/search?query=${searchQuery}`);
+        setEmployees(response.data);
+      } else {
 
-  const handleDeleteEmployee = (id) => {
-    axios.delete(`http://localhost:5000/employees/${id}`)
-      .then(response => {
-        const updatedEmployees = employees.filter(emp => emp.id !== id);
-        setEmployees(updatedEmployees);
-      })
-      .catch(error => console.error('Error deleting employee:', error));
-  };
-
-  const handleSearch = () => {
-    if (searchQuery) {
-      const filteredEmployees = employees.filter(emp => emp.id.includes(searchQuery));
-      setEmployees(filteredEmployees);
-    } else {
-      axios.get('http://localhost:5000/employees')
-        .then(response => setEmployees(response.data))
-        .catch(error => console.error('Error fetching employees:', error));
+        const response = await axios.get(API_URL);
+        setEmployees(response.data);
+      }
+    } catch (error) {
+      console.error('Error searching employees:', error);
     }
   };
 
   return (
     <div className="App">
       <h1 className='form-title'>Employee Registration Application</h1>
-      <AddEmployeeForm onAddEmployee={handleAddEmployee} employeeToEdit={employeeToEdit} />
+      
+      <AddEmployeeForm 
+        onAddEmployee={handleAddEmployee} 
+        employeeToEdit={employeeToEdit} 
+      />
 
-      <h2 className='searchH'>Search Employee by ID</h2>
+      <h2 className='searchH'>Search Employee</h2>
       <input 
         className='inputSearch'
         type="text" 
         value={searchQuery} 
         onChange={(e) => setSearchQuery(e.target.value)} 
-        placeholder="Search by ID" 
+        placeholder="Search by Name" 
       />
       <button className='btnSearch' onClick={handleSearch}>Search</button>
 
@@ -82,7 +96,7 @@ const App = () => {
           <EmployeeCard 
             key={employee.id} 
             employee={employee} 
-            onEdit={handleEditEmployee} 
+            onEdit={setEmployeeToEdit} 
             onDelete={handleDeleteEmployee} 
           />
         ))}
