@@ -1,4 +1,3 @@
-// src/admin/GeneralAdminLogin.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -9,10 +8,8 @@ const GeneralAdminLogin = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // Handle login logic here
         if (email === 'generaladmin@example.com' && password === 'generaladminpassword') {
             alert('Login successful');
-            // Redirect to dashboard or home page
         } else {
             setError('Invalid credentials');
         }

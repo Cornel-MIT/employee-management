@@ -8,10 +8,8 @@ const SuperAdminLogin = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // Handle login logic here
         if (email === 'superadmin@example.com' && password === 'superadminpassword') {
             alert('Login successful');
-            // Redirect to dashboard or home page
         } else {
             setError('Invalid credentials');
         }

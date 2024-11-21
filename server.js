@@ -246,6 +246,12 @@ app.get('/api/employees', async (req, res) => {
 //   try {
 //     const superAdmin = req.body;
 
+//     // Check if a super admin already exists
+//     const snapshot = await db.collection('superAdmins').get();
+//     if (!snapshot.empty) {
+//       return res.status(400).json({ error: 'Only one Super Admin is allowed' });
+//     }
+
 //     // Validate input
 //     if (!superAdmin.name || !superAdmin.email || !superAdmin.password) {
 //       return res.status(400).json({ error: 'Name, email, and password are required for Super Admin' });
@@ -273,21 +279,172 @@ app.get('/api/employees', async (req, res) => {
 //   }
 // });
 
-// Route to register a super admin
 
+// // Route to get all super admins
+// app.get('/api/superadmins', async (req, res) => {
+//   try {
+//     const snapshot = await db.collection('superAdmins').get();
+//     const superAdmins = snapshot.docs.map(doc => ({
+//       id: doc.id,
+//       ...doc.data()
+//     }));
+//     res.json(superAdmins);
+//   } catch (error) {
+//     console.error('Error fetching Super Admins:', error);
+//     res.status(500).json({ 
+//       error: 'Unable to fetch Super Admins', 
+//       details: error.message 
+//     });
+//   }
+// });
+
+
+// app.post('/api/generaladmin', async (req, res) => {
+//   try {
+//     const generalAdmin = req.body;
+
+//     if (!generalAdmin.name || !generalAdmin.email || !generalAdmin.password) {
+//       return res.status(400).json({ error: 'Name, email, and password are required for General Admin' });
+//     }
+
+//     const docRef = await db.collection('generalAdmins').add({
+//       ...generalAdmin,
+//       createdAt: admin.firestore.FieldValue.serverTimestamp()
+//     });
+
+//     res.status(201).json({ id: docRef.id, ...generalAdmin });
+//   } catch (error) {
+//     console.error('Error adding General Admin:', error);
+//     res.status(500).json({ 
+//       error: 'Unable to add General Admin', 
+//       details: error.message 
+//     });
+//   }
+// });
+
+
+// // Route to get all general admins
+// app.get('/api/generaladmins', async (req, res) => {
+//   try {
+//     const snapshot = await db.collection('generalAdmins').get();
+//     const generalAdmins = snapshot.docs.map(doc => ({
+//       id: doc.id,
+//       ...doc.data()
+//     }));
+//     res.json(generalAdmins);
+//   } catch (error) {
+//     console.error('Error fetching General Admins:', error);
+//     res.status(500).json({ 
+//       error: 'Unable to fetch General Admins', 
+//       details: error.message 
+//     });
+//   }
+// });
+
+// // Route to get specific super admin by id
+// app.get('/api/superadmins/:id', async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const doc = await db.collection('superAdmins').doc(id).get();
+    
+//     if (!doc.exists) {
+//       return res.status(404).json({ error: 'Super Admin not found' });
+//     }
+    
+//     res.json({ id: doc.id, ...doc.data() });
+//   } catch (error) {
+//     console.error('Error fetching Super Admin:', error);
+//     res.status(500).json({ 
+//       error: 'Unable to fetch Super Admin', 
+//       details: error.message 
+//     });
+//   }
+// });
+
+// // Route to get specific general admin by id
+// app.get('/api/generaladmins/:id', async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const doc = await db.collection('generalAdmins').doc(id).get();
+    
+//     if (!doc.exists) {
+//       return res.status(404).json({ error: 'General Admin not found' });
+//     }
+    
+//     res.json({ id: doc.id, ...doc.data() });
+//   } catch (error) {
+//     console.error('Error fetching General Admin:', error);
+//     res.status(500).json({ 
+//       error: 'Unable to fetch General Admin', 
+//       details: error.message 
+//     });
+//   }
+// });
+
+// // Route to delete a super admin
+// app.delete('/api/superadmins/:id', async (req, res) => {
+//   try {
+//     const { id } = req.params;
+    
+//     const doc = await db.collection('superAdmins').doc(id).get();
+//     if (!doc.exists) {
+//       return res.status(404).json({ error: 'Super Admin not found' });
+//     }
+
+//     await db.collection('superAdmins').doc(id).delete();
+    
+//     res.json({ message: 'Super Admin deleted successfully', id });
+//   } catch (error) {
+//     console.error('Error deleting Super Admin:', error);
+//     res.status(500).json({ 
+//       error: 'Unable to delete Super Admin', 
+//       details: error.message 
+//     });
+//   }
+// });
+
+// // Route to delete a general admin
+// app.delete('/api/generaladmins/:id', async (req, res) => {
+//   try {
+//     const { id } = req.params;
+    
+//     const doc = await db.collection('generalAdmins').doc(id).get();
+//     if (!doc.exists) {
+//       return res.status(404).json({ error: 'General Admin not found' });
+//     }
+
+//     await db.collection('generalAdmins').doc(id).delete();
+    
+//     res.json({ message: 'General Admin deleted successfully', id });
+//   } catch (error) {
+//     console.error('Error deleting General Admin:', error);
+//     res.status(500).json({ 
+//       error: 'Unable to delete General Admin', 
+//       details: error.message 
+//     });
+//   }
+// });
+
+// Route to create a Super Admin
 app.post('/api/superadmin', async (req, res) => {
   try {
     const superAdmin = req.body;
 
-    // Check if a super admin already exists
-    const snapshot = await db.collection('superAdmins').get();
-    if (!snapshot.empty) {
+    // Check if a Super Admin already exists (only one Super Admin allowed)
+    const superAdminSnapshot = await db.collection('superAdmins').get();
+    if (!superAdminSnapshot.empty) {
       return res.status(400).json({ error: 'Only one Super Admin is allowed' });
     }
 
     // Validate input
     if (!superAdmin.name || !superAdmin.email || !superAdmin.password) {
       return res.status(400).json({ error: 'Name, email, and password are required for Super Admin' });
+    }
+
+    // Check if the email is already taken (for Super Admins)
+    const existingSuperAdmin = await db.collection('superAdmins').where('email', '==', superAdmin.email).get();
+    if (!existingSuperAdmin.empty) {
+      return res.status(400).json({ error: 'Super Admin with this email already exists' });
     }
 
     // Hash the password
@@ -298,22 +455,58 @@ app.post('/api/superadmin', async (req, res) => {
       name: superAdmin.name,
       email: superAdmin.email,
       password: hashedPassword, // Store the hashed password
+      role: 'superAdmin',       // Assign the role of Super Admin
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
-    // Return success response
     res.status(201).json({ id: docRef.id, ...superAdmin });
   } catch (error) {
     console.error('Error adding Super Admin:', error);
-    res.status(500).json({ 
-      error: 'Unable to add Super Admin', 
-      details: error.message 
+    res.status(500).json({
+      error: 'Unable to add Super Admin',
+      details: error.message
     });
   }
 });
 
+// Route to create a General Admin
+app.post('/api/generaladmin', async (req, res) => {
+  try {
+    const { name, surname, age, idNumber, photo, role } = req.body;
 
-// Route to get all super admins
+    // Validate input
+    if (!name || !surname || !age || !idNumber || !photo || !role) {
+      return res.status(400).json({ error: 'All fields are required.' });
+    }
+
+    // Check if a general admin already exists with the same ID number (or email, etc.)
+    const snapshot = await db.collection('generalAdmins').where('idNumber', '==', idNumber).get();
+    if (!snapshot.empty) {
+      return res.status(400).json({ error: 'Admin with this ID number already exists.' });
+    }
+
+    // Create new General Admin document
+    const docRef = await db.collection('generalAdmins').add({
+      name,
+      surname,
+      age,
+      idNumber,
+      photo, // Storing Base64 encoded image as string
+      role,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    // Return success response
+    res.status(201).json({ id: docRef.id, name, surname, age, idNumber, role });
+  } catch (error) {
+    console.error('Error creating General Admin:', error);
+    // Log more details about the error for debugging
+    res.status(500).json({ error: 'Unable to create General Admin', details: error.message });
+  }
+});
+
+
+// Route to get all Super Admins
 app.get('/api/superadmins', async (req, res) => {
   try {
     const snapshot = await db.collection('superAdmins').get();
@@ -324,148 +517,70 @@ app.get('/api/superadmins', async (req, res) => {
     res.json(superAdmins);
   } catch (error) {
     console.error('Error fetching Super Admins:', error);
-    res.status(500).json({ 
-      error: 'Unable to fetch Super Admins', 
-      details: error.message 
+    res.status(500).json({
+      error: 'Unable to fetch Super Admins',
+      details: error.message
     });
   }
 });
 
+// Route to get all General Admins
+// app.get('/api/admins', async (req, res) => {
+//   try {
+//     // Fetch general admins and super admins
+//     const generalAdminsSnapshot = await db.collection('generalAdmins').get();
+//     const superAdminsSnapshot = await db.collection('superAdmins').get();
 
-app.post('/api/generaladmin', async (req, res) => {
+//     const generalAdmins = generalAdminsSnapshot.docs.map(doc => ({
+//       id: doc.id,
+//       ...doc.data(),
+//     }));
+
+//     const superAdmins = superAdminsSnapshot.docs.map(doc => ({
+//       id: doc.id,
+//       ...doc.data(),
+//     }));
+
+//     // Combine both lists
+//     const admins = [...generalAdmins, ...superAdmins];
+
+//     res.json(admins);
+//   } catch (error) {
+//     console.error('Error fetching admins:', error);
+//     res.status(500).json({
+//       error: 'Unable to fetch admins',
+//       details: error.message,
+//     });
+//   }
+// });
+
+app.get('/api/admins', async (req, res) => {
   try {
-    const generalAdmin = req.body;
+    const generalAdminsSnapshot = await db.collection('generalAdmins').get();
+    const superAdminsSnapshot = await db.collection('superAdmins').get();
 
-    if (!generalAdmin.name || !generalAdmin.email || !generalAdmin.password) {
-      return res.status(400).json({ error: 'Name, email, and password are required for General Admin' });
-    }
-
-    const docRef = await db.collection('generalAdmins').add({
-      ...generalAdmin,
-      createdAt: admin.firestore.FieldValue.serverTimestamp()
-    });
-
-    res.status(201).json({ id: docRef.id, ...generalAdmin });
-  } catch (error) {
-    console.error('Error adding General Admin:', error);
-    res.status(500).json({ 
-      error: 'Unable to add General Admin', 
-      details: error.message 
-    });
-  }
-});
-
-
-// Route to get all general admins
-app.get('/api/generaladmins', async (req, res) => {
-  try {
-    const snapshot = await db.collection('generalAdmins').get();
-    const generalAdmins = snapshot.docs.map(doc => ({
+    const generalAdmins = generalAdminsSnapshot.docs.map(doc => ({
       id: doc.id,
-      ...doc.data()
+      ...doc.data(),
     }));
-    res.json(generalAdmins);
+
+    const superAdmins = superAdminsSnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    const admins = [...generalAdmins, ...superAdmins];
+    res.json(admins); 
   } catch (error) {
-    console.error('Error fetching General Admins:', error);
-    res.status(500).json({ 
-      error: 'Unable to fetch General Admins', 
-      details: error.message 
+    console.error('Error fetching admins:', error);
+    res.status(500).json({
+      error: 'Unable to fetch admins',
+      details: error.message,
     });
   }
 });
 
-// Route to get specific super admin by id
-app.get('/api/superadmins/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const doc = await db.collection('superAdmins').doc(id).get();
-    
-    if (!doc.exists) {
-      return res.status(404).json({ error: 'Super Admin not found' });
-    }
-    
-    res.json({ id: doc.id, ...doc.data() });
-  } catch (error) {
-    console.error('Error fetching Super Admin:', error);
-    res.status(500).json({ 
-      error: 'Unable to fetch Super Admin', 
-      details: error.message 
-    });
-  }
-});
 
-// Route to get specific general admin by id
-app.get('/api/generaladmins/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const doc = await db.collection('generalAdmins').doc(id).get();
-    
-    if (!doc.exists) {
-      return res.status(404).json({ error: 'General Admin not found' });
-    }
-    
-    res.json({ id: doc.id, ...doc.data() });
-  } catch (error) {
-    console.error('Error fetching General Admin:', error);
-    res.status(500).json({ 
-      error: 'Unable to fetch General Admin', 
-      details: error.message 
-    });
-  }
-});
-
-// Route to delete a super admin
-app.delete('/api/superadmins/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    
-    const doc = await db.collection('superAdmins').doc(id).get();
-    if (!doc.exists) {
-      return res.status(404).json({ error: 'Super Admin not found' });
-    }
-
-    await db.collection('superAdmins').doc(id).delete();
-    
-    res.json({ message: 'Super Admin deleted successfully', id });
-  } catch (error) {
-    console.error('Error deleting Super Admin:', error);
-    res.status(500).json({ 
-      error: 'Unable to delete Super Admin', 
-      details: error.message 
-    });
-  }
-});
-
-// Route to delete a general admin
-app.delete('/api/generaladmins/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    
-    const doc = await db.collection('generalAdmins').doc(id).get();
-    if (!doc.exists) {
-      return res.status(404).json({ error: 'General Admin not found' });
-    }
-
-    await db.collection('generalAdmins').doc(id).delete();
-    
-    res.json({ message: 'General Admin deleted successfully', id });
-  } catch (error) {
-    console.error('Error deleting General Admin:', error);
-    res.status(500).json({ 
-      error: 'Unable to delete General Admin', 
-      details: error.message 
-    });
-  }
-});
-
-// Default error handler
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ 
-    error: 'Something went wrong', 
-    details: err.message 
-  });
-});
 
 // Start server
 app.listen(PORT, () => {

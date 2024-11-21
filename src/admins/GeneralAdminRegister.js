@@ -1,4 +1,3 @@
-// src/admin/GeneralAdminRegister.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -14,7 +13,7 @@ const GeneralAdminRegister = () => {
             setError('Passwords do not match');
             return;
         }
-        // Handle registration logic here (e.g., send data to the server)
+
         alert('General Admin Registered successfully');
     };
 
