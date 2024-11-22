@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './SuperAdminRegister.css'
 
 const SuperAdminLogin = () => {
     const [email, setEmail] = useState('');
